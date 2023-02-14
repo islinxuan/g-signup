@@ -1,0 +1,444 @@
+:root {
+  user-select: none;
+
+  --font-serif: "Noto Sans", Helvetica, Arial, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.5rem;
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+
+  --theme-color: #1a73e8;
+  --text-major: #202124;
+  --text-minor: #5f6368;
+  --text-invert: #fff;
+  --text-link: #757575;
+  --background-major: #fff;
+  --border-major: #dadce0;
+  --form-invalid: #d93025;
+  --textbutton-hover: #174ea6;
+  --bg-option-hover: #eee;
+  --bg-option-active: #e0e0e0;
+}
+
+/* || 重置样式 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+/* || 谷歌风格 input 元素 */
+/* password, email, text */
+.gstyle-input__password,
+.gstyle-input__email,
+.gstyle-input__text {
+  position: relative;
+  display: grid;
+  align-items: center;
+  border: 1px solid var(--border-major);
+  border-radius: 4px;
+}
+.gstyle-input__password:focus-within,
+.gstyle-input__email:focus-within,
+.gstyle-input__text:focus-within {
+  border-color: var(--theme-color);
+  outline: 1.5px solid var(--theme-color);
+}
+
+.gstyle-input__password input,
+.gstyle-input__email input,
+.gstyle-input__text input {
+  min-inline-size: 150px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+  outline: none;
+}
+
+.gstyle-input__password input + .placeholder,
+.gstyle-input__email input + .placeholder,
+.gstyle-input__text input + .placeholder {
+  cursor: text;
+  position: absolute;
+  padding-inline: 8px;
+  color: var(--text-minor);
+  transform-origin: 0 50%;
+  transition: all 150ms ease;
+}
+.gstyle-input__password input:focus + .placeholder,
+.gstyle-input__email input:focus + .placeholder,
+.gstyle-input__text input:focus + .placeholder {
+  cursor: default;
+  color: var(--theme-color);
+  background-color: var(--background-major);
+  transform: translate(2px, -1.5em) scale(0.75);
+}
+.gstyle-input__password input:not(:focus, :placeholder-shown) + .placeholder,
+.gstyle-input__email input:not(:focus, :placeholder-shown) + .placeholder,
+.gstyle-input__text input:not(:focus, :placeholder-shown) + .placeholder {
+  cursor: default;
+  color: var(--text-minor);
+  background-color: var(--background-major);
+  transform: translate(2px, -1.5em) scale(0.75);
+}
+
+/* email */
+.gstyle-input__email {
+  grid-template-columns: 1fr min-content;
+}
+
+.gstyle-input__email .domain {
+  cursor: default;
+  padding-inline-end: 8px;
+}
+
+/* checkbox */
+.gstyle-input__checkbox {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-block: 8px;
+}
+
+.gstyle-input__checkbox input {
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 18px;
+  block-size: 18px;
+  border: 2px solid var(--text-minor);
+  border-radius: 2px;
+  color: var(--text-invert);
+  outline: none;
+}
+.gstyle-input__checkbox input:focus-visible,
+.gstyle-input__checkbox input:hover {
+  border-color: var(--text-major);
+}
+.gstyle-input__checkbox input:checked {
+  border-color: var(--theme-color);
+  background-color: var(--theme-color);
+}
+
+.gstyle-input__checkbox input::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: all 150ms ease;
+}
+.gstyle-input__checkbox input:focus-visible::before,
+.gstyle-input__checkbox input:hover::before {
+  background-color: var(--bg-checkbox-hover, #eee);
+  transform: scale(1);
+}
+.gstyle-input__checkbox input:active::before {
+  background-color: var(--bg-checkbox-active, #e0e0e0);
+}
+
+.gstyle-input__checkbox input::after {
+  content: "\e5ca";
+  position: absolute;
+  font-family: "Material Symbols Outlined";
+  font-weight: bolder;
+  visibility: hidden;
+}
+.gstyle-input__checkbox input:checked::after {
+  visibility: visible;
+}
+
+.gstyle-input__checkbox label {
+  cursor: pointer;
+}
+
+/* || 裸文本或填充风格按钮 */
+.textbtn,
+.fillbtn {
+  cursor: pointer;
+  block-size: 36px;
+  border: none;
+  border-radius: 4px;
+  margin-block: 6px;
+  font-weight: var(--font-medium);
+  outline-offset: 2px;
+}
+.textbtn:focus-visible,
+.fillbtn:focus-visible {
+  outline: 2px solid var(--theme-color);
+}
+
+.textbtn {
+  padding: 0 8px;
+  margin-inline: -8px;
+  color: var(--theme-color);
+  background-color: transparent;
+}
+.textbtn:focus-visible,
+.textbtn:hover {
+  color: var(--textbutton-hover);
+  background-color: var(--bg-textbtn-hover, #f6fafe);
+}
+.textbtn:active {
+  background-color: var(--bg-textbtn-active, #dceafb);
+}
+
+.fillbtn {
+  padding: 0 24px;
+  color: var(--text-invert);
+  background-color: var(--theme-color);
+}
+.fillbtn:focus-visible,
+.fillbtn:hover {
+  background-color: var(--bg-fillbtn-hover, #1b66ca);
+}
+.fillbtn:active {
+  background-color: var(--bg-fillbtn-active, #1c58a9);
+}
+
+/* || 自定义表单控件 */
+.form-control__password .tips:not(:empty),
+.form-control__account .tips:not(:empty),
+.form-control__fullname .tips:not(:empty) {
+  display: block;
+  margin-block-start: 2px;
+  margin-inline-start: 10px;
+  font-size: var(--text-xs);
+  color: var(--text-minor);
+}
+.form-control__password .tips.error:not(:empty),
+.form-control__account .tips.error:not(:empty),
+.form-control__fullname .tips.error:not(:empty) {
+  color: var(--form-invalid);
+}
+
+.form-control__password .combiner,
+.form-control__account .combiner,
+.form-control__fullname .combiner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.form-control__password .combiner > :where(.gstyle-input__password, .gstyle-input__email, .gstyle-input__text),
+.form-control__account .combiner > :where(.gstyle-input__password, .gstyle-input__email, .gstyle-input__text),
+.form-control__fullname .combiner > :where(.gstyle-input__password, .gstyle-input__email, .gstyle-input__text) {
+  flex: auto;
+}
+
+/* 模拟 select 元素 */
+.form-control__select {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px 8px 8px 16px;
+  border-radius: 4px;
+  margin-inline-start: -16px;
+}
+
+.form-control__select .arrow-drop-down {
+  font-size: 20px;
+}
+
+.form-control__select input {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.form-control__select [role="listbox"] {
+  list-style: none;
+  position: fixed;
+  inset-block-end: 16px;
+  min-inline-size: max-content;
+  max-block-size: 95vh;
+  padding: 0;
+  margin: 0 0 0 -16px;
+  opacity: 0;
+  outline: none;
+  box-shadow: 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%), 0 5px 5px -3px rgb(0 0 0 / 20%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  transform-origin: 0 100%;
+  transform: scale(0);
+}
+.form-control__select input.active ~ [role="listbox"] {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.form-control__select [role="listbox"] [role="option"] {
+  cursor: pointer;
+  padding: 8px 32px 8px 16px;
+  background-color: var(--background-major);
+}
+.form-control__select [role="listbox"] .focus[role="option"] {
+  background-color: var(--bg-option-hover);
+}
+.form-control__select [role="listbox"] [role="option"]:active {
+  background-color: var(--bg-option-active);
+}
+
+.form-control__select:focus-within,
+.form-control__select:active {
+  background-color: var(--bg-select-active, #e0e0e0);
+}
+
+/* || 谷歌帐号注册页面 */
+body {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-block-size: 100vh;
+  margin: 0;
+  font: var(--font-normal) var(--text-base) / var(--leading-tight) var(--font-serif);
+  color: var(--text-major);
+}
+
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 24px 24px 36px;
+}
+
+#app .form-title {
+  margin-block: 14px 10px;
+  font-weight: var(--font-normal);
+  font-size: var(--text-lg);
+}
+
+#signup {
+  display: grid;
+  gap: 24px;
+  margin-block: 24px 20px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+#signup .continue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-start: 8px;
+}
+
+#signup .continue .next {
+  order: 1;
+}
+
+aside {
+  display: none;
+  font-weight: var(--font-light);
+  text-align: center;
+}
+
+.docs {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 8px -16px;
+  font-weight: var(--font-medium);
+}
+
+.docs a {
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: var(--text-link);
+  text-decoration: none;
+}
+.docs a:focus-visible,
+.docs a:active {
+  background-color: var(--bg-link-active, #eee);
+  outline: none;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px 16px;
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}
+
+/* || 响应式网页设计，移动优先 */
+@media screen and (min-width: 450px) {
+  #app {
+    padding: 48px 40px 36px;
+  }
+
+  footer {
+    padding-inline: 40px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .form-control__password .combiner,
+  .form-control__account .combiner,
+  .form-control__fullname .combiner {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  body {
+    grid-template-rows: minmax(30px, 1fr) auto auto 1fr;
+    place-content: center;
+  }
+
+  #app {
+    grid-row: 2 / 3;
+    inline-size: 450px;
+    border: 1px solid var(--border-major);
+    border-radius: 8px;
+  }
+
+  footer {
+    grid-row: 3 / 4;
+    inline-size: 450px;
+    padding: 16px 0 0;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  #app {
+    grid-template-columns: 3fr 2fr;
+    column-gap: 48px;
+    inline-size: 750px;
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+
+  #signup .continue {
+    margin-block-start: 24px;
+  }
+
+  aside {
+    display: block;
+  }
+
+  footer {
+    inline-size: 750px;
+  }
+}
